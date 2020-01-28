@@ -82,7 +82,10 @@ def main():
         p = Path(path).expanduser().resolve()
         if p.exists():
             with p.open('r', encoding='utf-8') as f:
-                for m in load_config(f)['mappings']:
+                config = load_config(f)
+                if not config.get('inherit'):
+                    mappings = []
+                for m in config['mappings']:
                     ml = []
                     for i in m:
                         ml.append(dict(

@@ -1,0 +1,14 @@
+{
+  "mappings": [
+    [
+      {
+        "type": "windows",
+        "prefix": "C:"
+      },
+      {
+        "type": "posix",
+        "prefix": "/mnt/c"
+      }
+    ]
+  ]
+}

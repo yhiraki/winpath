@@ -108,7 +108,10 @@ def main():
     ret = convert_static(path, to_path, mappings)
     ret = convert(ret, method)
 
-    sys.stdout.write(str(Path(ret).expanduser()))
+    if ret.startswith('~'):
+        sys.stdout.write(str(Path(ret).expanduser()))
+    else:
+        sys.stdout.write(ret)
 
 
 if __name__ == '__main__':

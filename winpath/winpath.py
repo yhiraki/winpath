@@ -103,7 +103,9 @@ def main():
 
     method = methods[to_path]
 
-    ret = convert_static(args.path, to_path, mappings)
+    path = args.path.replace('\n', '').strip(' ￼')
+
+    ret = convert_static(path, to_path, mappings)
     ret = convert(ret, method)
 
     sys.stdout.write(str(Path(ret).expanduser()))

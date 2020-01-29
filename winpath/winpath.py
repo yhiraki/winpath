@@ -73,7 +73,8 @@ def main():
     from argparse import ArgumentParser
 
     parser = ArgumentParser()
-    parser.add_argument('-t', '--to-path', dest='t')
+    parser.add_argument('-t', '--to-path', dest='t', metavar='dest',
+                        choices=[i.name.lower() for i in PathType])
     parser.add_argument('path')
     args = parser.parse_args()
 

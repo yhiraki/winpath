@@ -10,7 +10,6 @@ class PathType(Enum):
     POSIX = auto()
     WINDOWS = auto()
     ANY = auto()
-    NONE = auto()
 
 
 def detect(path):

@@ -9,6 +9,11 @@ $ winpath '\path\to\windows\dir'
 /path/to/windows/dir
 ```
 
+```console
+$ winpath '\\192.168.0.10\share'
+smb://192.168.0.10/share
+```
+
 ## Installation
 
 ```console
@@ -17,7 +22,7 @@ $ pip install git+https://github.com/yhiraki/winpath
 
 ## Configuration
 
-- `~/.winpathrc.json`
+If you add custom mappings, create `~/.winpathrc.json`.
 
 ```json
 {
@@ -43,24 +48,7 @@ $ winpath 'C:\to\windows\dir'
 
 ## Examples
 
-### Mount and open file on MacOS
-
-```json
-{
-  "mappings": [
-    [
-      {
-        "type": "windows",
-        "prefix": "\\192.168.0.11"
-      },
-      {
-        "type": "posix",
-        "prefix": "smb://192.168.0.11"
-      }
-    ]
-  ]
-}
-```
+### Mount Samba file and open file on MacOS
 
 ```console
 $ open $(winpath '\\192.168.0.11\share\sample.pptx')

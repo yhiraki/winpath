@@ -83,7 +83,8 @@ def main():
         if p.exists():
             with p.open('r', encoding='utf-8') as f:
                 config = load_config(f)
-                if not config.get('inherit'):
+                is_override = config.get('override')
+                if is_override is not None and is_override:
                     mappings = []
                 for m in config['mappings']:
                     ml = []

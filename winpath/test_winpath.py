@@ -50,16 +50,36 @@ class TestWinpath(unittest.TestCase):
             self.assertEqual(winpath.to_windows(l), w)
             self.assertEqual(winpath.to_windows(l + '/'), w + '\\')
 
-    def test_convert_static(self):
-        """Test path convert static"""
+    def test_convert_static_c(self):
+        """Test path convert C: drive"""
         tp = winpath.PathType
         mappings = [[
             {'type': tp.WINDOWS, 'prefix': 'c:'},
             {'type': tp.POSIX, 'prefix': '/mnt/c'}
         ]]
-        self.assertEqual(winpath.convert_static('c:', tp.POSIX, mappings), '/mnt/c')
-        self.assertEqual(winpath.convert_static('c:\\hoge', tp.POSIX, mappings), '/mnt/c\\hoge')
-        self.assertEqual(winpath.convert_static('/mnt/c/hoge', tp.WINDOWS, mappings), 'c:/hoge')
+        tests = (
+            ('c:', '/mnt/c'),
+            (r'c:\hoge', r'/mnt/c\hoge'),
+        )
+        for t, e in tests:
+            self.assertEqual(winpath.convert_static(t, tp.POSIX, mappings), e)
+            self.assertEqual(winpath.convert_static(e, tp.WINDOWS, mappings), t)
+
+    def test_convert_static_samba(self):
+        """Test path convert Samba"""
+        tp = winpath.PathType
+        mappings = [[
+            {'type': tp.WINDOWS, 'prefix': r'\\'},
+            {'type': tp.POSIX, 'prefix': 'smb://'}
+        ]]
+        tests = (
+            (r'\\', 'smb://'),
+            (r'\\server', 'smb://server'),
+            (r'\\192.168.0.10', 'smb://192.168.0.10'),
+        )
+        for t, e in tests:
+            self.assertEqual(winpath.convert_static(t, tp.POSIX, mappings), e)
+            self.assertEqual(winpath.convert_static(e, tp.WINDOWS, mappings), t)
 
 
 if __name__ == '__main__':

@@ -3,11 +3,11 @@
     [
       {
         "type": "windows",
-        "prefix": "C:"
+        "prefix": "\\\\"
       },
       {
         "type": "posix",
-        "prefix": "/mnt/c"
+        "prefix": "smb://"
       }
     ]
   ]
